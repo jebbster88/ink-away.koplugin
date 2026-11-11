@@ -14,6 +14,7 @@ local logger = require("logger")
 local _ = require("ink/l10n")
 local RenderImage = require("ui/renderimage")
 local Export = require("ink/export")
+local Xnote = require("ink/export/xnote")
 local ImageProc = require("ink/imageproc")
 local Layers = require("ink/layers")
 local Links = require("ink/links")
@@ -173,6 +174,7 @@ function InkAwayView:openExport()
     end
     local o = self:exportOptions()
     local nb, book = self.notebook, self.book
+    if book and o.fmt == "xnote" then o.fmt = "pdf" end   -- (a book's ink is not written for xnotes)
     local paged = nb or book
     local count = paged and self:exportCount() or 1
     local pdf_src = paged and self:exportPdf() or nil
@@ -180,6 +182,7 @@ function InkAwayView:openExport()
     local editable = can_edit and o.pdf_type ~= "pictures"
     -- a book that reflows is saved as pictures laid out as it is now
     local reflow = book and not pdf_src
+    local xnote = o.fmt == "xnote"
     self:closeSheet("_save_dialog")
     self:ensureUserIcons()
     local content_w = self:sheetWidth()
@@ -201,8 +204,10 @@ function InkAwayView:openExport()
         add(vspan(16))
         add(self:sheetLabel(_("Format"), true))
         add(vspan(6))
-        add(self:segmentedRow({ { "png", _("PNG images") }, { "pdf", _("PDF") } }, o.fmt, content_w,
-            function(v) o.fmt = v; reopen() end))
+        local formats = { { "png", _("PNG images") }, { "pdf", _("PDF") } }
+        -- (a notebook or drawing's pen strokes can go to the xnotes app; "xnotes" is its name)
+        if not book then formats[#formats + 1] = { "xnote", "xnotes" } end
+        add(self:segmentedRow(formats, o.fmt, content_w, function(v) o.fmt = v; reopen() end))
         if can_edit then
             add(vspan(12))
             add(self:sheetLabel(_("PDF type"), true))
@@ -256,6 +261,9 @@ function InkAwayView:openExport()
                     add(self:sheetHint(string.format(_("A PNG holds the page shown, page %d."), nb.index), content_w))
                 end
             end
+        elseif xnote then
+            add(vspan(4))
+            add(self:sheetHint(_("Your pen strokes as a notebook for the xnotes app on Android, where each stroke can still be moved, erased and copied into another notebook. Text, pictures, fills and smudges are left out."), content_w))
         elseif not editable and not book then
             -- a light paper can print on white instead (a dark one always goes,
             -- or its white ink would not show)
@@ -269,7 +277,7 @@ function InkAwayView:openExport()
                     function(v) o.on_paper = v; reopen() end))
             end
         end
-        if not editable then
+        if not editable and not xnote then
             if nb then
                 toggle(pdf_src and _("Include the PDF page") or _("Include the paper"), "include_bg")
             elseif book then
@@ -301,6 +309,8 @@ function InkAwayView:openExport()
         local label = _("Export PNG")
         if editable then
             label = _("Export editable PDF")
+        elseif xnote then
+            label = _("Export for xnotes")
         elseif o.fmt == "pdf" then
             label = paged and string.format(_("Export %d page(s) to PDF"), #self:exportPageList())
                 or _("Export PDF")
@@ -402,7 +412,8 @@ function InkAwayView:promptExportName(name, dir)
     local paged = self.notebook or self.book
     -- PNGs of several pages go in a folder of their own, named here
     local folder = ext == "png" and paged and o.scope ~= "page" and #self:exportPageList() > 1
-    local title = ext == "pdf" and _("Export as PDF") or folder and _("Export as images") or _("Export as PNG")
+    local title = ext == "pdf" and _("Export as PDF") or ext == Xnote.EXT and _("Export for xnotes")
+        or folder and _("Export as images") or _("Export as PNG")
     self:askExportPath{
         title = title,
         name = name or o.name or self:exportName(), default = self:exportName(),
@@ -411,6 +422,7 @@ function InkAwayView:promptExportName(name, dir)
         on_path = function(path)
             o.name = Storage.stem(path)
             if ext == "pdf" then self:writeExport(path)
+            elseif ext == Xnote.EXT then self:writeXnote(path)
             elseif paged and (folder or self.book) then self:writePagesPNG(path)
             elseif paged and o.scope ~= "page" then self:writePagesPNG(path)
             else self:writePNG(path) end
@@ -503,6 +515,34 @@ function InkAwayView:writePNG(path)
         logger.warn("InkAway: export failed:", err)
         self:tell(string.format(_("Could not save the image.\n%s"), tostring(err)))
     end
+end
+
+-- Write the chosen pages' pen strokes (a drawing is one page) as a notebook
+-- for the xnotes app (see ink/export/xnote.lua), and say what went in.
+function InkAwayView:writeXnote(path)
+    local nb = self.notebook
+    local lists = {}
+    if nb then
+        for _i, i in ipairs(self:exportPageList()) do lists[#lists + 1] = nb.pages[i].ops or {} end
+    else
+        lists[1] = self:drawnOps()
+    end
+    local paper = self:paperRGB()
+    -- the reader's own pixels per inch, so the writing keeps its size in xnotes
+    local dpi = Device.getDeviceScreenDPI and Device:getDeviceScreenDPI() or (Screen.getDPI and Screen:getDPI()) or 300
+    local stats, err = Xnote.save(path, lists, nb and nb.w or self.canvas.w, nb and nb.h or self.canvas.h,
+        { dpi = dpi, paper = paper, dark = paper and Paint.darkPaper(paper) or nil })
+    if not stats then
+        logger.warn("InkAway: xnotes export failed:", err)
+        self:tell(_("Could not export.\n") .. tostring(err))
+        return
+    end
+    self:markDirty()   -- keep the export settings with the document
+    local text = string.format(_("Saved %d page(s) with %d pen stroke(s) for xnotes:\n%s"), stats.pages, stats.strokes, path)
+    if stats.left.total > 0 then
+        text = text .. "\n\n" .. string.format(_("%d item(s) that are not pen strokes were left out."), stats.left.total)
+    end
+    self:tell(text)
 end
 
 -- Write the export as the sheet has it set: an editable PDF where that is

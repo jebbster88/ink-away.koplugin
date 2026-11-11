@@ -8,6 +8,9 @@ versions marked *Prerelease* were test builds.
 
 ## [Unreleased]
 
+### Added
+- Export for xnotes: a notebook, some of its pages, or a drawing saved as a notebook for the xnotes app on Android (File, Export, xnotes). Each pen stroke stays a stroke there, so you can move, erase and recolour it, or copy it into another xnotes notebook, at the size you wrote it. Pens keep their width and pressure, what you erased stays erased, and shapes go as their outlines. Text boxes, pictures, fills and smudges are left out, and the export says how many. The Wi-Fi page lists the file with your other exports.
+
 ### Fixed
 - A notebook opens on the page you left it on again. Opening a second notebook used to store its page under the first one, so the first one came back on page 1; and the page was only kept in memory, so a reader that was switched off or crashed forgot it. It is now written out when you leave a notebook or close Ink Away.
 
