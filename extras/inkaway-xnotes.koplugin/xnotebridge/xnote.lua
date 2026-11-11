@@ -20,6 +20,8 @@ ballpoint) is worked out here and written as that pressure. A textured pen
 (pencil, charcoal) keeps its width and colour but not its grain, and xnotes
 rounds off the thin ends of a stroke, as it does for its own pens.
 
+This file is part of the companion plugin, not of Ink Away: it uses Ink Away's
+own modules (ink/...) for what a pen draws, and nothing in Ink Away uses it.
 Plain Lua, so the headless tests drive it.
 ]]
 
@@ -30,7 +32,7 @@ local Shapes = require("ink/shapes")
 local Storage = require("ink/storage")
 local Symmetry = require("ink/symmetry")
 local Geom = require("ink/geom")
-local Zip = require("ink/export/zip")
+local Zip = require("xnotebridge/zip")
 
 local Xnote = {}
 

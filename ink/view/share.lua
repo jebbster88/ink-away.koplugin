@@ -494,19 +494,14 @@ function InkAwayView:sendExportDirs()
     return dirs
 end
 
--- Is `ext` (lower case) a kind of file an export makes?
-local function exported(ext)
-    return ext == "pdf" or ext == "png" or ext == "xnote"
-end
-
--- The PDFs, PNGs and xnotes notebooks already exported, newest first.
+-- The PDFs and PNGs already exported, newest first.
 function InkAwayView:sendExportsList(base)
     local files = {}
     for _i, dir in ipairs(self:sendExportDirs()) do
         for _j, e in ipairs(Storage.list(dir)) do
             local ext = e.name:match("%.(%w+)$")
             ext = ext and ext:lower()
-            if e.mode == "file" and exported(ext) and e.name:sub(1, 1) ~= "." then
+            if e.mode == "file" and (ext == "pdf" or ext == "png") and e.name:sub(1, 1) ~= "." then
                 files[#files + 1] = e
             end
         end
@@ -527,7 +522,7 @@ function InkAwayView:sendExport(name, reply)
     name = tostring(name or "")
     local ext = name:match("%.(%w+)$")
     ext = ext and ext:lower()
-    if name == "" or name:find("[/\\%z]") or name:sub(1, 1) == "." or not exported(ext) then
+    if name == "" or name:find("[/\\%z]") or name:sub(1, 1) == "." or (ext ~= "pdf" and ext ~= "png") then
         return reply.send(404, Http.TYPES.txt, "Not found")
     end
     for _i, dir in ipairs(self:sendExportDirs()) do

@@ -161,11 +161,6 @@ msgstr "%d στοιχείο(-α) μέσα"
 msgid "%d item(s) on the clipboard"
 msgstr "%d στοιχεία στο πρόχειρο"
 
-#: ink/view/export.lua
-#, lua-format
-msgid "%d item(s) that are not pen strokes were left out."
-msgstr "%d στοιχεία που δεν είναι πινελιές γραφίδας παραλείφθηκαν."
-
 #: ink/view/share.lua
 #, lua-format
 msgid "%d more after it"
@@ -547,10 +542,6 @@ msgstr "Επίσης κάθε"
 #: ink/view/search.lua
 msgid "Also look inside pages (slower)"
 msgstr "Αναζήτηση και μέσα στις σελίδες (πιο αργά)"
-
-#: main.lua
-msgid "Always"
-msgstr "Πάντα"
 
 #: ink/view/exportbook.lua
 msgid "An editable PDF can't hold these as annotations:"
@@ -1866,10 +1857,6 @@ msgid "Export folder: %s"
 msgstr "Φάκελος εξαγωγής: %s"
 
 #: ink/view/export.lua
-msgid "Export for xnotes"
-msgstr "Εξαγωγή για το xnotes"
-
-#: ink/view/export.lua
 msgid "Export stopped."
 msgstr "Η εξαγωγή σταμάτησε."
 
@@ -2001,10 +1988,6 @@ msgstr "Πρώτη ή τελευταία σελίδα"
 msgid "First page"
 msgstr "Πρώτη σελίδα"
 
-#: main.lua
-msgid "First page on its own"
-msgstr "Η πρώτη σελίδα μόνη της"
-
 #: ink/actions.lua
 msgid "Fit the page"
 msgstr "Προσαρμογή στη σελίδα"
@@ -2065,10 +2048,6 @@ msgstr "Μέγεθος γραμματοσειράς"
 #, lua-format
 msgid "Font: %s"
 msgstr "Γραμματοσειρά: %s"
-
-#: main.lua
-msgid "For a book with a cover: the pairs then start from its second page."
-msgstr "Για βιβλίο με εξώφυλλο: τα ζεύγη ξεκινούν τότε από τη δεύτερη σελίδα του."
 
 #: ink/guide.lua
 msgid "For pen readers: rest your hand while you write. Finger on the page sets what a finger does then."
@@ -2442,10 +2421,6 @@ msgstr "Εισαγμένα PDF και εικόνες"
 #: ink/view/settings.lua
 msgid "In KOReader's night mode, ink keeps its colour: blue stays blue, and dark ink turns light so it reads on the dark page."
 msgstr "Στη νυχτερινή λειτουργία του KOReader το μελάνι κρατά το χρώμα του: το μπλε μένει μπλε και το σκούρο μελάνι ανοίγει ώστε να διαβάζεται στη σκούρα σελίδα."
-
-#: main.lua
-msgid "In landscape"
-msgstr "Σε οριζόντιο προσανατολισμό"
 
 #: ink/reader/roomtool.lua
 msgid "In this render mode, rooms are made of whole paragraphs. The Book and Web modes make them exact."
@@ -3175,10 +3150,6 @@ msgstr "Ναυτικό μπλε"
 msgid "New"
 msgstr "Νέα"
 
-#: main.lua
-msgid "New PDFs open with this choice. A PDF you set yourself keeps its own."
-msgstr "Τα νέα PDF ανοίγουν με αυτή την επιλογή. Ένα PDF που ρυθμίσατε εσείς κρατά τη δική του."
-
 #: ink/view/document.lua
 msgid "New drawing"
 msgstr "Νέο σχέδιο"
@@ -3515,7 +3486,6 @@ msgstr "Δρυς"
 
 #: ink/view/settings.lua
 #: ink/view/sync.lua
-#: main.lua
 msgid "Off"
 msgstr "Απενεργοποίηση"
 
@@ -3592,10 +3562,6 @@ msgstr "Άνοιγμα του Ink Away"
 #: main.lua
 msgid "Open as Ink Away notebook"
 msgstr "Άνοιγμα ως σημειωματάριο Ink Away"
-
-#: main.lua
-msgid "Open every PDF this way"
-msgstr "Άνοιγμα κάθε PDF με αυτόν τον τρόπο"
 
 #: ink/view/images.lua
 msgid "Open image as background"
@@ -4312,15 +4278,6 @@ msgstr ""
 #: ink/view/export.lua
 #, lua-format
 msgid ""
-"Saved %d page(s) with %d pen stroke(s) for xnotes:\n"
-"%s"
-msgstr ""
-"Αποθηκεύτηκαν %d σελίδες με %d πινελιές γραφίδας για το xnotes:\n"
-"%s"
-
-#: ink/view/export.lua
-#, lua-format
-msgid ""
 "Saved %d × %d image:\n"
 "%s"
 msgstr ""
@@ -4607,10 +4564,6 @@ msgstr "Εμφανίζεται στα ονόματα των αντιγράφων
 #: ink/guide.lua
 msgid "Shows how your pen, its buttons and your hand arrive. Handy in a bug report."
 msgstr "Δείχνει πώς φτάνουν το στυλό σας, τα κουμπιά του και το χέρι σας. Χρήσιμο σε αναφορά σφάλματος."
-
-#: main.lua
-msgid "Shows two pages next to each other, as a printed book falls open, also for a PDF whose pages are all single ones. Your ink stays on the page you drew it on. A page wider than tall is shown alone. This uses the page view, and switches to it."
-msgstr "Δείχνει δύο σελίδες τη μία δίπλα στην άλλη, όπως ένα ανοιχτό τυπωμένο βιβλίο, ακόμη και σε PDF με μόνο μονές σελίδες. Το μελάνι σας μένει στη σελίδα όπου το σχεδιάσατε. Μια σελίδα πιο φαρδιά από ό,τι ψηλή εμφανίζεται μόνη της. Χρησιμοποιεί την προβολή σελίδας και αλλάζει σε αυτήν."
 
 #: ink/actions.lua
 msgid "Side button"
@@ -5494,10 +5447,6 @@ msgstr "Έκδοση αυτής της συσκευής: %1, %2"
 msgid "This version of KOReader can't keep colours of your own on a highlight."
 msgstr "Αυτή η έκδοση του KOReader δεν μπορεί να κρατήσει δικά σου χρώματα σε μια επισήμανση."
 
-#: ink/view/pencase.lua
-msgid "This works with Palm rejection on."
-msgstr "Λειτουργεί με ενεργή την απόρριψη παλάμης."
-
 #: ink/view/textformat.lua
 msgid "Tight"
 msgstr "Σφιχτό"
@@ -5634,10 +5583,6 @@ msgstr "Δύο αρχεία διαφέρουν μόνο σε κεφαλαία γ
 #: ink/sync/errors.lua
 msgid "Two names look the same"
 msgstr "Δύο ονόματα μοιάζουν ίδια"
-
-#: main.lua
-msgid "Two pages side by side"
-msgstr "Δύο σελίδες δίπλα-δίπλα"
 
 #: ink/actions.lua
 msgid "Two-finger double tap"
@@ -5955,10 +5900,6 @@ msgstr "Τα πρώτα τέσσερα αποθηκευμένα στυλό σα�
 msgid "Your own brushes"
 msgstr "Τα δικά σας πινέλα"
 
-#: ink/view/export.lua
-msgid "Your pen strokes as a notebook for the xnotes app on Android, where each stroke can still be moved, erased and copied into another notebook. Text, pictures, fills and smudges are left out."
-msgstr "Οι πινελιές της γραφίδας σας ως σημειωματάριο για την εφαρμογή xnotes στο Android, όπου κάθε πινελιά μπορεί ακόμη να μετακινηθεί, να σβηστεί και να αντιγραφεί σε άλλο σημειωματάριο. Το κείμενο, οι εικόνες, τα γεμίσματα και τα μουτζουρώματα παραλείπονται."
-
 #: ink/guide.lua
 #: ink/view/pencase.lua
 msgid "Your pens on the page"
@@ -6121,3 +6062,39 @@ msgstr "Το «%s» υπάρχει ήδη. Να αντικατασταθεί;"
 #, lua-format
 msgid "“%s” is in Library: Imported only holds what you sent"
 msgstr "Το «%s» είναι στη Βιβλιοθήκη: τα Εισαγμένα κρατούν μόνο ό,τι στείλατε"
+
+#: main.lua
+msgid "Two pages side by side"
+msgstr "Δύο σελίδες δίπλα-δίπλα"
+
+#: main.lua
+msgid "In landscape"
+msgstr "Σε οριζόντιο προσανατολισμό"
+
+#: main.lua
+msgid "Always"
+msgstr "Πάντα"
+
+#: main.lua
+msgid "First page on its own"
+msgstr "Η πρώτη σελίδα μόνη της"
+
+#: main.lua
+msgid "For a book with a cover: the pairs then start from its second page."
+msgstr "Για βιβλίο με εξώφυλλο: τα ζεύγη ξεκινούν τότε από τη δεύτερη σελίδα του."
+
+#: main.lua
+msgid "Open every PDF this way"
+msgstr "Άνοιγμα κάθε PDF με αυτόν τον τρόπο"
+
+#: main.lua
+msgid "New PDFs open with this choice. A PDF you set yourself keeps its own."
+msgstr "Τα νέα PDF ανοίγουν με αυτή την επιλογή. Ένα PDF που ρυθμίσατε εσείς κρατά τη δική του."
+
+#: main.lua
+msgid "Shows two pages next to each other, as a printed book falls open, also for a PDF whose pages are all single ones. Your ink stays on the page you drew it on. A page wider than tall is shown alone. This uses the page view, and switches to it."
+msgstr "Δείχνει δύο σελίδες τη μία δίπλα στην άλλη, όπως ένα ανοιχτό τυπωμένο βιβλίο, ακόμη και σε PDF με μόνο μονές σελίδες. Το μελάνι σας μένει στη σελίδα όπου το σχεδιάσατε. Μια σελίδα πιο φαρδιά από ό,τι ψηλή εμφανίζεται μόνη της. Χρησιμοποιεί την προβολή σελίδας και αλλάζει σε αυτήν."
+
+#: ink/view/pencase.lua
+msgid "This works with Palm rejection on."
+msgstr "Λειτουργεί με ενεργή την απόρριψη παλάμης."

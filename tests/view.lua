@@ -4212,33 +4212,6 @@ do
         "export: a page PNG includes its paper")
     ok(png.canvas == view.canvas, "export: a page PNG is the page shown")
 
-    -- the pen strokes of the chosen pages as a notebook for the xnotes app
-    o.fmt, o.scope = "xnote", "ink"
-    view:openExport()
-    ok(view._save_dialog ~= nil, "export: the sheet opens for xnotes")
-    view:closeSheet("_save_dialog")
-    view:promptExportName()
-    answer("Notes")
-    do
-        local f = io.open(LIB .. "/out/Notes.xnote", "rb")
-        local data = f and f:read("*a") or ""
-        if f then f:close() end
-        ok(data:sub(1, 4) == "PK\3\4" and data:find("manifest.json", 1, true), "export: an xnotes notebook is a zip with its manifest")
-        local pages = select(2, data:gsub('"pdf_page"', ""))
-        ok(pages == 2 and select(2, data:gsub('"kind":"stroke"', "")) == 2, "export: it holds the pages with ink, a stroke each")
-        local msg = UIManager.shown and UIManager.shown.text or textIn(view._message) or ""
-        ok(msg:find("2 page", 1, true) and msg:find("Notes.xnote", 1, true), "export: and says what was saved")
-        view:closeSheet("_message")
-        -- and the Wi-Fi page hands it out with the other exports
-        local listed, sent = false, nil
-        view.sendExportDirs = function() return { LIB .. "/out" } end   -- (the test's folder is not Ink Away's own)
-        for _, e in ipairs(view:sendExportsList("/t/")) do if e.name == "Notes.xnote" then listed = true end end
-        view:sendExport("Notes.xnote", { send = function(code) sent = code end, file = function(path) sent = path end })
-        ok(listed and sent == LIB .. "/out/Notes.xnote", "export: the Wi-Fi page lists and sends an xnotes notebook")
-        view.sendExportDirs = nil
-    end
-    o.fmt, o.scope = "png", "all"
-
     -- the library's hold menu offers Export for documents
     view:openLibrary(LIB)
     local item
