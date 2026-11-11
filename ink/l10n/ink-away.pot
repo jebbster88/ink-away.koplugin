@@ -160,6 +160,11 @@ msgstr ""
 msgid "%d item(s) on the clipboard"
 msgstr ""
 
+#: ink/view/export.lua
+#, lua-format
+msgid "%d item(s) that are not pen strokes were left out."
+msgstr ""
+
 #: ink/view/share.lua
 #, lua-format
 msgid "%d more after it"
@@ -1840,6 +1845,10 @@ msgstr ""
 #: ink/view/settings.lua
 #, lua-format
 msgid "Export folder: %s"
+msgstr ""
+
+#: ink/view/export.lua
+msgid "Export for xnotes"
 msgstr ""
 
 #: ink/view/export.lua
@@ -4265,6 +4274,13 @@ msgstr ""
 #: ink/view/export.lua
 #, lua-format
 msgid ""
+"Saved %d page(s) with %d pen stroke(s) for xnotes:\n"
+"%s"
+msgstr ""
+
+#: ink/view/export.lua
+#, lua-format
+msgid ""
 "Saved %d × %d image:\n"
 "%s"
 msgstr ""
@@ -5880,6 +5896,10 @@ msgstr ""
 
 #: ink/guide.lua
 msgid "Your own brushes"
+msgstr ""
+
+#: ink/view/export.lua
+msgid "Your pen strokes as a notebook for the xnotes app on Android, where each stroke can still be moved, erased and copied into another notebook. Text, pictures, fills and smudges are left out."
 msgstr ""
 
 #: ink/guide.lua

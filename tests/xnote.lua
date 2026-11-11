@@ -1,12 +1,12 @@
--- A notebook's pen strokes written for the xnotes app (xnotebridge/xnote.lua in the companion plugin): what
+-- A notebook's pen strokes written for the xnotes app (ink/export/xnote.lua): what
 -- becomes a stroke and what is counted instead, the eraser applied first, each pen's
 -- width written as the pressure xnotes turns back into it, and the zip around it
--- (xnotebridge/zip.lua).
--- Run from Ink Away's folder:  luajit extras/tests/xnote.lua
-package.path = "./?.lua;./tests/mock/?.lua;./extras/inkaway-xnotes.koplugin/?.lua;" .. package.path
+-- (ink/export/zip.lua).
+--   luajit tests/xnote.lua
+package.path = "./?.lua;./tests/mock/?.lua;" .. package.path
 local Json = require("ink/sync/json")
-local Xnote = require("xnotebridge/xnote")
-local Zip = require("xnotebridge/zip")
+local Xnote = require("ink/export/xnote")
+local Zip = require("ink/export/zip")
 
 local checks, failures = 0, 0
 local function ok(cond, what)

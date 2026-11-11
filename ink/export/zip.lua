@@ -1,6 +1,6 @@
 --[[
 A small zip writer, for the exports that are a zip of their own (an xnotes
-notebook, see xnotebridge/xnote.lua). It writes what a zip needs and no more:
+notebook, see ink/export/xnote.lua). It writes what a zip needs and no more:
 each file's sizes and checksum before its data, so a reader that takes the
 archive as a stream reads it too, then the list of files and the end record.
 
